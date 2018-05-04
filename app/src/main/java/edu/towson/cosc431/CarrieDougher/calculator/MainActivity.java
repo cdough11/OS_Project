@@ -1,17 +1,17 @@
 package edu.towson.cosc431.CarrieDougher.calculator;
 
+import android.app.Activity;
 import android.content.DialogInterface;
-import android.icu.text.DecimalFormat;
-import android.os.StrictMode;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends Activity implements View.OnClickListener {
 
     Button one;
     Button two;
@@ -31,6 +31,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button multiply;
     Button divide;
     Button equals;
+    Button square;
+    Button sqrt;
+    Button sin;
+    Button cos;
+    Button tan;
     TextView result;
     String firstNum = "";
     String secondNum = "";
@@ -63,6 +68,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         divide = (Button)findViewById(R.id.division);
         equals = (Button)findViewById(R.id.equals);
         result = (TextView)findViewById(R.id.result);
+        square = (Button) findViewById(R.id.square);
+        sqrt = (Button) findViewById(R.id.sqrt);
+        sin = (Button) findViewById(R.id.sin);
+        cos = (Button) findViewById(R.id.cos);
+        tan = (Button) findViewById(R.id.tan);
         one.setOnClickListener(this);
         two.setOnClickListener(this);
         three.setOnClickListener(this);
@@ -80,6 +90,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         multiply.setOnClickListener(this);
         divide.setOnClickListener(this);
         equals.setOnClickListener(this);
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+            square.setOnClickListener(this);
+            sqrt.setOnClickListener(this);
+            sin.setOnClickListener(this);
+            cos.setOnClickListener(this);
+            tan.setOnClickListener(this);
+        }
     }
 
     public void onClick(View view) {
@@ -149,6 +166,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.equals:
                 calculate(firstNum, secondNum, operator);
+                break;
+            case R.id.square:
+                square(firstNum);
+                break;
+            case(R.id.sqrt):
+                sqrt(firstNum);
+                break;
+            case(R.id.sin):
+                sin(firstNum);
+                break;
+            case(R.id.cos):
+                cos(firstNum);
+                break;
+            case(R.id.tan):
+                tan(firstNum);
                 break;
         }
     }
@@ -232,6 +264,56 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 result.setText(String.valueOf(answer));
             }
         }
+    }
+
+    public void square(String num){
+        Double value = Double.valueOf(num);
+        double ans;
+        ans = value * value;
+        String Stringans = String.valueOf(ans);
+        if (Stringans.endsWith(".0"))
+            Stringans = Stringans.substring(0, Stringans.indexOf("."));
+        result.setText(Stringans);
+    }
+
+    public void sqrt(String num){
+        Double value = Double.valueOf(num);
+        double ans;
+        ans = Math.sqrt(value);
+        String Stringanswer = String.valueOf(ans);
+        if(Stringanswer.endsWith(".0"))
+            Stringanswer = Stringanswer.substring(0, Stringanswer.indexOf("."));
+        result.setText(Stringanswer);
+    }
+
+    public void sin(String num){
+        Double value = Double.valueOf(num);
+        double ans = Math.sin(value);
+        String Stringanswer = String.valueOf(ans);
+        if(Stringanswer.endsWith(".0")){
+            Stringanswer = Stringanswer.substring(0, Stringanswer.indexOf("."));
+        }
+        result.setText(Stringanswer);
+    }
+
+    public void cos(String num){
+        Double value = Double.valueOf(num);
+        double ans = Math.cos(value);
+        String Stringanswer = String.valueOf(ans);
+        if(Stringanswer.endsWith(".0")){
+            Stringanswer = Stringanswer.substring(0, Stringanswer.indexOf("."));
+        }
+        result.setText(Stringanswer);
+    }
+
+    public void tan(String num){
+        Double value = Double.valueOf(num);
+        double ans = Math.tan(value);
+        String Stringanswer = String.valueOf(ans);
+        if(Stringanswer.endsWith(".0")){
+            Stringanswer = Stringanswer.substring(0, Stringanswer.indexOf("."));
+        }
+        result.setText(Stringanswer);
     }
 
     public void clear() {
